@@ -6,8 +6,9 @@ import mysql.connector
 db = mysql.connector.connect(
     host="localhost",
     user="adrian",
-    passwd="adrian",
-    database="test"
+    auth_plugin='mysql_native_password',
+    passwd="l8fr.ZS-luba",
+    database="users"
     )
 
 # In order to put our new connnection to good use we need to create a cursor object.
@@ -23,7 +24,7 @@ cur = db.cursor()
 
 def menu():
     # show menu options
-    os.system("cls")
+    os.system("clear")
     print("display animals: 1")
     print("add new animal: 2")
     print("delete animal: 3")
@@ -44,9 +45,9 @@ def menu():
 
 
 def displayAnimals():
-    os.system("cls")
+    os.system("clear")
 
-    cur.execute("Select * FROM animals")
+    cur.execute("Select * FROM animal")
     for animal in cur:
         print(animal)
 
@@ -55,36 +56,43 @@ def displayAnimals():
 
 
 def addAnimal():
-    os.system("cls")
+    os.system("clear")
     print("adding new animal: ")
 
     print("name: ")
     name = input()
 
     print("type: ")
-    animalType = input()
+    type = input()
 
     print("race: ")
     race = input()
 
     print("age: ")
-    age = input()
+    gender = input()
 
-    cur.execute("INSERT INTO ANIMALS (name, type, race, age) VALUES (%s, %s, %s, %s)", (name, animalType, race, age))
+    print("description: ")
+    description = input()
+
+    print("IMG path: ")
+    img = input()
+
+    cur.execute("INSERT INTO animal (name, type, race, gender, description, img) VALUES (%s, %s, %s, %s, %s, %s)", (name, type, race, gender, description, img))
+    db.commit()
 
     choice = input()
     menu()
 
 
 def deleteAnimal():
-    os.system("cls")
+    os.system("clear")
     print("delete animal")
     choice = input()
     menu()
 
 
 def editAnimal():
-    os.system("cls")
+    os.system("clear")
     print("editing animal")
     choice = input()
     menu()
